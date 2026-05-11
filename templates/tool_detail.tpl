@@ -1,10 +1,26 @@
 % rebase('base.tpl', title=tool['name'], user=user)
 
+% if tool.get('description'):
+<div class="modal-overlay" id="desc-modal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h2>{{tool['name']}}</h2>
+    <p>{{tool['description']}}</p>
+  </div>
+</div>
+% end
+
 <div class="tool-detail-wrap">
 
   <!-- ── Tool header ── -->
   <div class="tool-hero">
-    <div class="tool-hero-icon">{{tool['name'][0]}}</div>
+    <div class="tool-hero-icon">
+      % if tool.get('img_url'):
+        <img src="{{tool['img_url']}}" alt="{{tool['name']}}">
+      % else:
+        {{tool['name'][0]}}
+      % end
+    </div>
     <div class="tool-hero-info">
       <div class="tool-hero-top">
         <span class="badge badge-cat">{{tool['category']}}</span>
@@ -16,6 +32,9 @@
       </div>
       <h1>{{tool['name']}}</h1>
       <p class="tool-hero-company">by {{tool['company']}}</p>
+      % if tool.get('description'):
+        <button class="btn-sm" onclick="openModal()" style="margin-top:.5rem">Read More</button>
+      % end
 
       <div class="rating-row">
         <div class="stars-lg">
@@ -54,6 +73,9 @@
     </div>
 
     <div class="tool-hero-actions">
+      % if tool.get('website_url'):
+        <a href="{{tool['website_url']}}" target="_blank" rel="noopener" class="btn-sm">Visit Website</a>
+      % end
       % if user:
         <form method="post" action="/tool/{{tool['ai_ID']}}/bookmark">
           <button type="submit" class="{{'btn-bookmark active' if bookmarked else 'btn-bookmark'}}">

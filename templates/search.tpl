@@ -53,7 +53,13 @@
     <div class="tool-list">
       % for tool in tools:
         <a class="tool-row" href="/tool/{{tool['ai_ID']}}">
-          <div class="tool-row-icon">{{tool['name'][0]}}</div>
+          <div class="tool-row-icon">
+            % if tool.get('img_url'):
+              <img src="{{tool['img_url']}}" alt="{{tool['name']}}">
+            % else:
+              {{tool['name'][0]}}
+            % end
+          </div>
           <div class="tool-row-body">
             <div class="tool-row-top">
               <h3>{{tool['name']}}</h3>

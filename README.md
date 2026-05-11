@@ -52,6 +52,7 @@ aitool_reviewer/
 │   └── add_tool.tpl        # Submit a new tool
 ├── static/
 │   ├── css/style.css       # All styles
+│   ├── img/                # AI tool logos (chatgpt, claude, gemini, copilot, midjourney)
 │   └── js/main.js          # Star picker interaction
 └── backend/                # Database setup layer (does not run as part of the app)
     ├── models.py           # SQLAlchemy ORM models defining the full database schema
