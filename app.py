@@ -12,8 +12,11 @@ import psycopg2.extras          # gives us RealDictCursor (rows as plain dicts)
 
 from bottle import (
     Bottle, run, template, request, response,
-    redirect, static_file, HTTPError
+    redirect, static_file, HTTPError, TEMPLATE_PATH
 )
+
+# Bottle looks for templates in ./views/ by default; our templates are in ./templates/
+TEMPLATE_PATH.insert(0, './templates')
 
 app = Bottle()
 

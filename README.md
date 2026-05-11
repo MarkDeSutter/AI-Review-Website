@@ -40,7 +40,7 @@ Open **http://localhost:8080** in your browser.
 
 ```
 aitool_reviewer/
-├── app.py                  # All routes, DB helpers, auth logic
+├── app.py                  # All routes, DB helpers, auth logic (Bottle)
 ├── templates/
 │   ├── base.tpl            # Shared navbar / footer layout
 │   ├── index.tpl           # Home page
@@ -50,10 +50,20 @@ aitool_reviewer/
 │   ├── login.tpl           # Login page
 │   ├── profile.tpl         # User profile + bookmarks
 │   └── add_tool.tpl        # Submit a new tool
-└── static/
-    ├── css/style.css       # All styles
-    └── js/main.js          # Star picker interaction
+├── static/
+│   ├── css/style.css       # All styles
+│   └── js/main.js          # Star picker interaction
+└── backend/                # Database setup layer (does not run as part of the app)
+    ├── models.py           # SQLAlchemy ORM models defining the full database schema
+    ├── extensions.py       # SQLAlchemy instance used by the models
+    ├── populate_db.py      # Seeds the Neon PostgreSQL database with initial data
+    ├── app.py              # Minimal Flask context required to run populate_db.py
+    └── SystemDesign.md     # Original schema design notes
 ```
+
+> **Note:** The `backend/` folder was used solely to design the database schema and seed it in Neon.
+> It does **not** interact with the Bottle application (`app.py`) at runtime.
+> The running app connects to the already-provisioned Neon database directly via psycopg2.
 
 ---
 
