@@ -4,7 +4,13 @@
 
   <!-- ── Tool header ── -->
   <div class="tool-hero">
-    <div class="tool-hero-icon">{{tool['name'][0]}}</div>
+    <div class="tool-hero-icon">
+      % if tool.get('img_url'):
+        <img src="{{tool['img_url']}}" alt="{{tool['name']}}">
+      % else:
+        {{tool['name'][0]}}
+      % end
+    </div>
     <div class="tool-hero-info">
       <div class="tool-hero-top">
         <span class="badge badge-cat">{{tool['category']}}</span>
@@ -54,6 +60,9 @@
     </div>
 
     <div class="tool-hero-actions">
+      % if tool.get('website_url'):
+        <a href="{{tool['website_url']}}" target="_blank" rel="noopener" class="btn-sm">Visit Website</a>
+      % end
       % if user:
         <form method="post" action="/tool/{{tool['ai_ID']}}/bookmark">
           <button type="submit" class="{{'btn-bookmark active' if bookmarked else 'btn-bookmark'}}">

@@ -61,8 +61,8 @@ class AI_Tools(db.Model):
     price = db.Column(db.Float(), nullable=True)
     category = db.Column(db.Text(), nullable=False)
     date = db.Column(db.Integer(), nullable=False)
-    website_url = db.Column(db.String(), nullable=False)
-    img_url = db.Column(db.String(), nullable=False)
+    website_url = db.Column(db.String(), nullable=True)
+    img_url = db.Column(db.String(), nullable=True)
 
     # Relationships
     reviews = db.relationship('Reviews', backref='ai_tool', lazy=True)

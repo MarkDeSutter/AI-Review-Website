@@ -39,16 +39,16 @@ with app.app_context():
 
     # --- AI Tools ---
     tools_data = [
-        (1, 'ChatGPT',        'OpenAI',      4.5, 20.0, 'Language Model'),
-        (2, 'Claude',         'Anthropic',   4.7, 20.0, 'Language Model'),
-        (3, 'Gemini',         'Google',      4.2,  0.0, 'Language Model'),
-        (4, 'GitHub Copilot', 'Microsoft',   4.3, 10.0, 'Code Assistant'),
-        (5, 'Midjourney',     'Midjourney',  4.6, 10.0, 'Image Generation'),
+        (1, 'ChatGPT',        'OpenAI',      4.5, 20.0, 'Language Model', 'https://chat.openai.com',   '/static/img/chat_gpt.jpg'),
+        (2, 'Claude',         'Anthropic',   4.7, 20.0, 'Language Model', 'https://claude.ai',         '/static/img/claude_logo.jpg'),
+        (3, 'Gemini',         'Google',      4.2,  0.0, 'Language Model', 'https://gemini.google.com', '/static/img/gemini.png'),
+        (4, 'GitHub Copilot', 'Microsoft',   4.3, 10.0, 'Code Assistant', 'https://github.com/features/copilot', '/static/img/copilot.png'),
+        (5, 'Midjourney',     'Midjourney',  4.6, 10.0, 'Image Generation','https://midjourney.com',   '/static/img/midjourney.jpg'),
     ]
-    for aid, name, company, rating, price, category in tools_data:
+    for aid, name, company, rating, price, category, website_url, img_url in tools_data:
         db.session.add(AI_Tools(ai_ID=aid, name=name, company=company, rating=rating,
-                                price=price, category=category,
-                                date=now - random.randint(1000000, 50000000)))
+                                price=price, category=category, website_url=website_url,
+                                img_url=img_url, date=now - random.randint(1000000, 50000000)))
     db.session.commit()
 
     # --- Reviews ---

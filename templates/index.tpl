@@ -25,7 +25,13 @@
     % for tool in top_tools:
       <a class="tool-card" href="/tool/{{tool['ai_ID']}}">
         <div class="tool-card-top">
-          <div class="tool-icon">{{tool['name'][0]}}</div>
+          <div class="tool-icon">
+            % if tool.get('img_url'):
+              <img src="{{tool['img_url']}}" alt="{{tool['name']}}">
+            % else:
+              {{tool['name'][0]}}
+            % end
+          </div>
           <div class="tool-meta">
             <span class="tool-category">{{tool['category']}}</span>
             <div class="stars" data-rating="{{tool['rating']}}">
