@@ -40,16 +40,22 @@ with app.app_context():
 
     # --- AI Tools ---
     tools_data = [
-        (1, 'ChatGPT',        'OpenAI',      4.5, 20.0, 'Language Model', 'https://chat.openai.com',   '/static/img/chat_gpt.jpg'),
-        (2, 'Claude',         'Anthropic',   4.7, 20.0, 'Language Model', 'https://claude.ai',         '/static/img/claude_logo.jpg'),
-        (3, 'Gemini',         'Google',      4.2,  0.0, 'Language Model', 'https://gemini.google.com', '/static/img/gemini.png'),
-        (4, 'GitHub Copilot', 'Microsoft',   4.3, 10.0, 'Code Assistant', 'https://github.com/features/copilot', '/static/img/copilot.png'),
-        (5, 'Midjourney',     'Midjourney',  4.6, 10.0, 'Image Generation','https://midjourney.com',   '/static/img/midjourney.jpg'),
+        (1, 'ChatGPT',        'OpenAI',      4.5, 20.0, 'Language Model', 'https://chat.openai.com',   '/static/img/chat_gpt.jpg',
+         'ChatGPT is a conversational AI by OpenAI built on the GPT-4 architecture. It excels at writing, coding, analysis, and answering complex questions. With a massive user base and regular model updates, it remains one of the most versatile AI assistants available.'),
+        (2, 'Claude',         'Anthropic',   4.7, 20.0, 'Language Model', 'https://claude.ai',         '/static/img/claude_logo.jpg',
+         'Claude is an AI assistant built by Anthropic with a focus on safety, honesty, and helpfulness. Known for handling long documents, nuanced reasoning, and thoughtful responses, Claude is a strong choice for research, writing, and in-depth analysis.'),
+        (3, 'Gemini',         'Google',      4.2,  0.0, 'Language Model', 'https://gemini.google.com', '/static/img/gemini.png',
+         'Gemini is Google\'s multimodal AI model capable of understanding text, images, and code. Deeply integrated with Google Workspace and Search, it is a natural fit for users already in the Google ecosystem who want AI assistance across everyday tasks.'),
+        (4, 'GitHub Copilot', 'Microsoft',   4.3, 10.0, 'Code Assistant', 'https://github.com/features/copilot', '/static/img/copilot.png',
+         'GitHub Copilot is an AI-powered code completion tool developed by GitHub and OpenAI. It integrates directly into editors like VS Code and suggests entire lines or blocks of code in real time, dramatically speeding up development workflows.'),
+        (5, 'Midjourney',     'Midjourney',  4.6, 10.0, 'Image Generation','https://midjourney.com',   '/static/img/midjourney.jpg',
+         'Midjourney is an AI image generation tool known for producing stunning, highly artistic visuals from text prompts. Accessible via Discord, it is the go-to tool for designers, artists, and creatives looking to generate high-quality imagery.'),
     ]
-    for aid, name, company, rating, price, category, website_url, img_url in tools_data:
+    for aid, name, company, rating, price, category, website_url, img_url, description in tools_data:
         db.session.add(AI_Tools(ai_ID=aid, name=name, company=company, rating=rating,
                                 price=price, category=category, website_url=website_url,
-                                img_url=img_url, date=now - random.randint(1000000, 50000000)))
+                                img_url=img_url, description=description,
+                                date=now - random.randint(1000000, 50000000)))
     db.session.commit()
 
     # --- Reviews ---
