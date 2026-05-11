@@ -1,5 +1,15 @@
 % rebase('base.tpl', title=tool['name'], user=user)
 
+% if tool.get('description'):
+<div class="modal-overlay" id="desc-modal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h2>{{tool['name']}}</h2>
+    <p>{{tool['description']}}</p>
+  </div>
+</div>
+% end
+
 <div class="tool-detail-wrap">
 
   <!-- ── Tool header ── -->
@@ -22,6 +32,9 @@
       </div>
       <h1>{{tool['name']}}</h1>
       <p class="tool-hero-company">by {{tool['company']}}</p>
+      % if tool.get('description'):
+        <button class="btn-sm" onclick="openModal()" style="margin-top:.5rem">Read More</button>
+      % end
 
       <div class="rating-row">
         <div class="stars-lg">

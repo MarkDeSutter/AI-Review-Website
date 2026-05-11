@@ -63,6 +63,7 @@ class AI_Tools(db.Model):
     date = db.Column(db.Integer(), nullable=False)
     website_url = db.Column(db.String(), nullable=True)
     img_url = db.Column(db.String(), nullable=True)
+    description = db.Column(db.Text(), nullable=True)
 
     # Relationships
     reviews = db.relationship('Reviews', backref='ai_tool', lazy=True)
