@@ -14,6 +14,7 @@ from bottle import (
     Bottle, run, template, request, response,
     redirect, static_file, HTTPError, TEMPLATE_PATH
 )
+from urllib.parse import quote_plus
 
 # Bottle looks for templates in ./views/ by default; our templates are in ./templates/
 TEMPLATE_PATH.insert(0, './templates')
@@ -234,9 +235,35 @@ def tool_detail(aiid):
         GROUP BY tr."types"
     """, (aiid,))
 
+    tag_error = request.query.get("tag_error") if request.query.get("tag_error") else None
+
     return template("tool_detail", user=user, tool=tool, reviews=reviews,
                     topical=topical, tags=tags, bookmarked=bookmarked,
-                    user_review=user_review, avg_topical=avg_topical)
+                    user_review=user_review, avg_topical=avg_topical,
+                    tag_error=tag_error)
+
+
+@app.route("/tool/<aiid:int>/tag", method="POST")
+@login_required
+def add_tool_tag(aiid):
+    user = get_session_user()
+    tool = query('SELECT * FROM ai_tools WHERE "ai_ID" = %s', (aiid,), one=True)
+    if not tool:
+        raise HTTPError(404)
+
+    tag = request.forms.get("tag", "").strip()
+    if not tag:
+        redirect(f"/tool/{aiid}?tag_error={quote_plus('Tag cannot be blank')}")
+
+    existing = query(
+        'SELECT 1 FROM tags WHERE "ai_ID"=%s AND "user_ID"=%s AND "tag"=%s',
+        (aiid, user["user_ID"], tag), one=True
+    )
+    if not existing:
+        execute('INSERT INTO tags ("ai_ID","user_ID","tag") VALUES (%s,%s,%s)',
+                (aiid, user["user_ID"], tag))
+
+    redirect(f"/tool/{aiid}")
 
 
 # ---------------------------------------------------------------------------

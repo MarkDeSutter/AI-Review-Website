@@ -35,6 +35,22 @@
           % end
         </div>
       % end
+
+      % if tag_error:
+        <div class="alert alert-error">{{tag_error}}</div>
+      % end
+
+      % if user:
+        <form method="post" action="/tool/{{tool['ai_ID']}}/tag" class="tag-form" style="margin-top:1rem">
+          <label>Add a tag</label>
+          <div class="tag-input-row">
+            <input type="text" name="tag" placeholder="e.g. productivity" required>
+            <button type="submit" class="btn-sm">Add Tag</button>
+          </div>
+        </form>
+      % else:
+        <p class="small-note" style="margin-top:1rem">Log in to add your own tags to this tool.</p>
+      % end
     </div>
 
     <div class="tool-hero-actions">
