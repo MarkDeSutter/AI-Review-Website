@@ -6,9 +6,9 @@ class Users(db.Model):
 
     user_ID = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.Text(), nullable=False)
-    password = db.Column(db.String(255), nullable=False)
+    password = db.Column(db.Text(), nullable=False)
     date_Created = db.Column(db.Integer(), nullable=False)
-    email = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.Text(), nullable=False)
 
     # Relationships
     reviews = db.relationship('Reviews', backref='user', lazy=True)
@@ -24,7 +24,7 @@ class Reviews(db.Model):
     ai_ID = db.Column(db.Integer(), db.ForeignKey('ai_tools.ai_ID'), nullable=False)
     user_ID = db.Column(db.Integer(), db.ForeignKey('users.user_ID'), nullable=False)
     rating = db.Column(db.Float(), nullable=True)
-    written_Review = db.Column(db.String(700), nullable=True)
+    written_Review = db.Column(db.Text(), nullable=True)
     date = db.Column(db.Integer(), nullable=False)
     version = db.Column(db.Integer(), primary_key=True, nullable=False)
 
@@ -60,9 +60,9 @@ class AI_Tools(db.Model):
     rating = db.Column(db.Float(), nullable=True)
     price = db.Column(db.Float(), nullable=True)
     category = db.Column(db.Text(), nullable=False)
-    date = db.Column(db.Integer(), nullable=False)
-    website_url = db.Column(db.String(), nullable=True)
-    img_url = db.Column(db.String(), nullable=True)
+    date_created = db.Column(db.Integer(), nullable=False)
+    website_url = db.Column(db.Text(), nullable=True)
+    img_url = db.Column(db.Text(), nullable=True)
     description = db.Column(db.Text(), nullable=True)
 
     # Relationships
@@ -76,7 +76,7 @@ class Topical_Reviews(db.Model):
 
     review_ID = db.Column(db.Integer, primary_key=True)
     version = db.Column(db.Integer(), primary_key=True)
-    types = db.Column(db.Text(), nullable=True)
+    types = db.Column(db.Text(), primary_key=True)
     rating = db.Column(db.Float(), nullable=True)
 
     __table_args__ = (
